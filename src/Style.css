@@ -1,0 +1,92 @@
+.container {
+  margin: 0 auto;
+  width: 1110px;
+}
+
+/* header */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  margin-bottom: 20px;
+}
+
+.logo {
+  height: 60px;
+}
+
+.btn-primary {
+  background: cornflowerblue;
+  border-color: cornflowerblue;
+}
+
+.content {
+  /* height: 100vh; */
+}
+
+/* main-page */
+
+.main-page {
+  margin-top: 10px;
+}
+
+.main-banner {
+  width: 1086px;
+  height: 390px;
+  background-image: url(./images/little-kids-cheering-while-holding-a-white-board.jpg);
+  background-size: cover;
+  background-position: 50% 40%;
+  margin-bottom: 20px;
+
+}
+
+.branch {
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  /* width: 200px;  */
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.branch-title {
+  position: absolute;
+  top: 5px;
+  left: 15px;
+}
+
+.branch-img {
+  max-height: 100%;
+}
+
+.footer {
+  margin-top: 10px;
+  height: 80px;
+  background: cornflowerblue;
+  
+}
+
+.sidebar {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  height: 500px;
+  border-radius: 3px;
+}
+
+/* .content {
+  margin-left: 25%;
+} */
+
+.btn-nav {
+  width: 100%;
+  border: 1px solid #e9ecf2;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.btn-nav .active {
+  border-color: #b8cffd;
+}
