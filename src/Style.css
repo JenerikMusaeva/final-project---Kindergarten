@@ -1,8 +1,17 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+
 .container {
   margin: 0 auto;
   width: 1110px;
 }
 
+p {
+  margin-bottom: 8px;
+}
+
+span {
+  font-weight: 700;
+}
 /* header */
 
 .header {
@@ -17,9 +26,16 @@
   height: 60px;
 }
 
-.btn-primary {
+.btn-login {
   background: cornflowerblue;
   border-color: cornflowerblue;
+  color: aliceblue;
+}
+
+.btn-login:hover {
+  background: #7b68ee;
+  border-color: #7b68ee;
+  color: aliceblue;
 }
 
 .content {
@@ -39,11 +55,10 @@
   background-size: cover;
   background-position: 50% 40%;
   margin-bottom: 20px;
-
 }
 
 .branch {
-  /* display: flex; */
+  display: flex;
   justify-content: center;
   align-items: center;
   /* width: 200px;  */
@@ -55,7 +70,10 @@
 .branch-title {
   position: absolute;
   top: 5px;
-  left: 15px;
+  left: 50px;
+  background: rgba(255, 255, 255, 0.671);
+  padding: 10px;
+  color: cornflowerblue;
 }
 
 .branch-img {
@@ -66,7 +84,6 @@
   margin-top: 10px;
   height: 80px;
   background: cornflowerblue;
-  
 }
 
 .sidebar {
@@ -89,4 +106,85 @@
 
 .btn-nav .active {
   border-color: #b8cffd;
+}
+
+.info-icon {
+  width: 20px;
+  height: 20px;
+  background: url(./images/info-icon.svg) no-repeat center;
+  display: block;
+  block-size: contain;
+}
+
+.delete-icon {
+  width: 20px;
+  height: 20px;
+  background: url(./images/delete-icon.svg) no-repeat center;
+  display: block;
+  block-size: contain;
+}
+
+.btn-add {
+  margin-top: 20px;
+  background: cornflowerblue;
+  border-color: cornflowerblue;
+  color: aliceblue;
+}
+
+.btn-add:hover {
+  background: #7b68ee;
+  border-color: #7b68ee;
+  color: aliceblue;
+}
+
+.group > .row {
+  border: 1px solid #e9ecf2;
+  border-radius: 3px;
+  padding: 5px;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.child > .row {
+  border: 1px solid #e9ecf2;
+  border-radius: 3px;
+  padding: 5px;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.kindergartener-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid cornflowerblue;
+  border-radius: 3px;
+}
+
+.kindergartener-avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 250px;
+  overflow: hidden;
+}
+
+.kindergartener-foto {
+  max-height: 100%;
+}
+
+.daily-regime {
+  padding: 20px;
+  border: 1px solid cornflowerblue;
+  border-radius: 3px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+}
+
+.daily-regime > p {
+  margin-top: 0px;
+  margin-bottom: 0px;
 }

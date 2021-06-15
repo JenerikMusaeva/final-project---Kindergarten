@@ -1,12 +1,13 @@
+import { Link } from 'react-router-dom'
 import Logo from '../images/Logo.png'
 
 export default function Header() {
 
   return(
     <div className="header">
-      <img className="logo" src={Logo} />
+      <Link to='/'><img className="logo" src={Logo} /></Link>
       <div>
-        <button className="btn btn-primary">Log In</button>
+      <Link to='/admin/:path'><button className="btn btn-login">Admin</button></Link>
         </div>
     </div>
     

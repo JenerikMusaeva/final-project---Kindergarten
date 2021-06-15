@@ -1,72 +1,56 @@
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route,
-  NavLink,
-} from "react-router-dom";
-import ListOfChildren from "../components/ListOfChildren";
-import Branches from "../components/Branches";
-import Report from "../components/Report";
-import Attendance from "../components/Attendance";
+import { NavLink, useParams } from "react-router-dom";
+
+import AdminComponent from "../components/admin/AdminComponents";
 
 export default function Admin() {
+
+  let { path } = useParams();
+
   return (
     <>
-      <Router>
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-3 sidebar">
-              <NavLink
-                to="/attendance"
-                className="btn btn-nav"
-                activeClassName="active"
-              >
-                Ведомость посещаемости
-              </NavLink>
+      <div className="container-fluid">
+        <div className="row">
+          <div className="col-3 sidebar">
+            
+            <NavLink
+              to="/admin/attendance"
+              className="btn btn-nav"
+              activeClassName="active"
+            >
+              Ведомость посещаемости
+            </NavLink>
 
-              <NavLink
-                to="/branches"
-                className="btn btn-nav"
-                activeClassName="active"
-              >
-                Филиалы
-              </NavLink>
+            <NavLink
+              to="/admin/report"
+              className="btn btn-nav"
+              activeClassName="active"
+            >
+              Отчет посещаемости
+            </NavLink>
 
-              <NavLink
-                to="/listofchildren"
-                className="btn btn-nav"
-                activeClassName="active"
-              >
-                Воспитанники
-              </NavLink>
+            <NavLink
+              to="/admin/groups"
+              className="btn btn-nav"
+              activeClassName="active"
+            >
+              Группы
+            </NavLink>
 
-              <NavLink
-                to="/report"
-                className="btn btn-nav"
-                activeClassName="active"
-              >
-                Отчет посещаемости
-              </NavLink>
-            </div>
-
-            <div className="col-6 content">
-              <Switch>
-                <Route
-                  path="/listofchildren"
-                  exact
-                  component={ListOfChildren}
-                />
-                <Route path="/branches" exact component={Branches} />
-                <Route path="/report" exact component={Report} />
-                <Route path="/attendance" exact component={Attendance} />
-
-                {/* <Route path="/login" exact component={Login} /> */}
-                {/* <Route path="/register" exact component={Register} /> */}
-              </Switch>
-            </div>
+            <NavLink
+              to="/admin/children"
+              className="btn btn-nav"
+              activeClassName="active"
+            >
+              Воспитанники
+            </NavLink>
           </div>
+
+          <div className="col-9 content">
+            <AdminComponent path={path} />
+          </div>
+
         </div>
-      </Router>
+      </div>
     </>
   );
 }

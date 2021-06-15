@@ -1,29 +1,36 @@
-import image from '../images/mother-and-daughter-drawing.jpeg'
-
+import image from "../images/mother-and-daughter-drawing.jpeg";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import Garten from "../components/Garten";
+import { fetchGartens } from "../store/actions/gartens";
+import { Link } from "react-router-dom";
 
 export default function Main() {
+  let dispatch = useDispatch();
+
+  let { loading, gartens } = useSelector((state) => state.gartens);
+
+  useEffect(() => {
+    dispatch(fetchGartens());
+  }, []);
+
   return (
-    <div className='main-page'>
-      <div className='main-banner'></div>
+    <div className="main-page">
+      <div className="main-banner"></div>
 
-      <div className='row'>
+      <div className="row">
 
-        <div className='branch col-4'>
-          <img className='branch-img' src={image} />
-          <div className='branch-title'>
-            <h3>Branch #1</h3>
-          </div>
-          
-        </div>
+      {loading ? (
+        <div> Загрузка филиалов </div>
+      ) : (
+        <>
+            {gartens.map((garten) => (
+              <Garten data={garten} key={garten.id} />
+            ))}
+        </>
+      )}
 
-        <div className='branch col-4'>
-          <img className='branch-img' src={image} />
-        </div>
-
-        <div className='branch col-4'>
-          <img className='branch-img' src={image} />
-        </div>
-
+        
       </div>
     </div>
   );

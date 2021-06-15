@@ -1,0 +1,16 @@
+export const FETCH_START = 'APPSTATE/FETCH_START'
+export const FETCH_END = 'APPSTATE/FETCH_END'
+
+export const SET_GARTENS = "GARTENS/SET_GARTENS"
+export const SET_GARTEN = "GARTENS/SET_GARTEN"
+
+
+export const SET_GROUPS = "GROUPS/SET_GROUPS"
+export const ADD_GROUP = "GROUPS/ADD_GROUP"
+
+
+export const SET_CHILDREN = "CHILDREN/SET_CHILDREN"
+
+
+
+
