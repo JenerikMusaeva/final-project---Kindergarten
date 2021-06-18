@@ -4,7 +4,7 @@ import { addNewGroupAction } from "../store/actions/groups";
 
 export default function AddGroup() {
   const [form, setForm] = useState({});
-  let dispatch = useDispatch()
+  let dispatch = useDispatch();
 
   let addGroupHandler = (e) => {
     e.preventDefault();
@@ -22,6 +22,8 @@ export default function AddGroup() {
       .then((data) => {
         dispatch(addNewGroupAction(data));
       });
+
+    console.log(form);
   };
 
   let handleChange = (e) => {
@@ -29,7 +31,6 @@ export default function AddGroup() {
       ...form,
       [e.target.name]: e.target.value,
     });
-    console.log(form);
   };
 
   return (
@@ -39,67 +40,71 @@ export default function AddGroup() {
       <form onSubmit={addGroupHandler}>
         <p>Выберите филиал</p>
         <div className="col-4">
-          <select class="form-select" name="garten_id">
-            <option value="1">Филиал 1</option>
+          <select
+            onChange={handleChange}
+            class="form-select"
+            name="kinderGardenId"
+          >
+            <option selected value="1">Филиал 1</option>
             <option value="2">Филиал 2</option>
             <option value="3">Филиал 3</option>
           </select>
         </div>
 
         <div className="md-3 col-7">
-          <label for="namegroup" className="form-label">
+          <label for="name" className="form-label">
             Название группы
           </label>
           <input
             type="text"
             className="form-control"
-            id="namegroup"
-            name="namegroup"
+            id="name"
+            name="name"
             onChange={handleChange}
             value={form.namegroup}
           />
         </div>
 
         <div className="md-3 col-7">
-          <label for="kindergartener" className="form-label">
+          <label for="teacherFullName" className="form-label">
             ФИО Воспитателя
           </label>
           <input
             type="text"
             className="form-control"
-            id="kindergartener"
-            name="kindergartener"
+            id="teacherFullName"
+            name="teacherFullName"
             onChange={handleChange}
-            value={form.kindergartener}
+            value={form.teacherFullName}
           />
         </div>
 
         <div className="md-3 col-7">
-          <label for="kindergartenerFoto" className="form-label">
+          <label for="imageId" className="form-label">
             Фотография воспитателя
           </label>
           <input
             type="text"
             className="form-control"
-            id="kindergartenerFoto"
-            name="kindergartenerFoto"
+            id="imageId"
+            name="imageId"
             onChange={handleChange}
-            value={form.kindergartenerFoto}
+            value={form.imageId}
           />
         </div>
 
         <div className="md-3 col-7">
-          <label for="groupInfo" className="form-label">
+          <label for="info" className="form-label">
             Информация группы
           </label>
           <textarea
             rows="6"
             type="text"
             className="form-control"
-            id="groupInfo"
-            name="groupInfo"
+            id="info"
+            name="info"
             onChange={handleChange}
-            value={form.groupInfo}
+            value={form.info}
           />
         </div>
 

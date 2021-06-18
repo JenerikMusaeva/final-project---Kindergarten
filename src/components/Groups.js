@@ -7,7 +7,10 @@ import { fetchGroups } from "../store/actions/groups";
 export default function Groups() {
   let dispatch = useDispatch();
 
-  let { groups } = useSelector((state) => state.groups);
+  const {
+    groups: { loading: groupsLoading, value: groups },
+  } = useSelector((state) => state.groups);
+
 
   useEffect(() => {
     dispatch(fetchGroups());
@@ -22,11 +25,13 @@ export default function Groups() {
 
       return groups.filter((group) => group.kinderGarden.id === +selectedBranch);
     });
-  }, [selectedBranch]);
+  }, [selectedBranch, groups]);
 
   const handleChange = (e) => {
     setSelectedBranch(e.target.value);
   };
+
+  
 
   return (
     <>
@@ -42,9 +47,9 @@ export default function Groups() {
         </div>
       </div>
 
-      {/* {loading ? ( */}
-      {/* <div> Загрузка филиалов </div> */}
-      {/* ) : ( */}
+      {groupsLoading ? ( 
+       <div> Загрузка групп </div> 
+       ) : ( 
       <>
         <h4>Список групп</h4>
 
@@ -53,12 +58,12 @@ export default function Groups() {
             <Group data={group} key={group.id} />
           ))}
 
-          <Link to="/admin/addgroup" className="btn btn-add">
+          <Link disabled={groupsLoading} to="/admin/addgroup" className="btn btn-add">
             Добавить группу
           </Link>
         </div>
       </>
-      {/* )} */}
+       )} 
     </>
   );
 }
