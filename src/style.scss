@@ -1,8 +1,217 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
-  
-$primary-color: #6495ed;
+
+$primary-color: #ee82ee;
 $hover-color: #7b68ee;
 $text-color: #fff;
 $border-color: #e9ecf2;
 $border-color-active: #b8cffd;
 
+@mixin hover-btn {
+  background: $hover-color;
+  border-color: $hover-color;
+  color: $text-color;
+}
+
+.container {
+  margin: 0 auto;
+  width: 1110px;
+}
+
+p {
+  margin-bottom: 8px;
+}
+
+span {
+  font-weight: 700;
+}
+
+/* header */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 70px;
+  margin-bottom: 20px;
+}
+
+.logo {
+  height: 60px;
+}
+
+.btn-login {
+  background: $primary-color;
+  border-color: $primary-color;
+  color: $text-color;
+  &:hover {
+    @include hover-btn;
+  }
+}
+
+/* main-page */
+
+.main-page {
+  margin-top: 10px;
+}
+
+.main-banner {
+  width: 1086px;
+  height: 390px;
+  background-image: url(./images/little-kids-cheering-while-holding-a-white-board.jpg);
+  background-size: cover;
+  background-position: 50% 40%;
+  margin-bottom: 20px;
+}
+
+.garten {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  /* width: 200px;  */
+  height: 200px;
+  overflow: hidden;
+  position: relative;
+}
+
+.garten-title {
+  position: absolute;
+  top: 5px;
+  left: 50px;
+  background: rgba(255, 255, 255, 0.671);
+  padding: 10px;
+  color: $primary-color;
+}
+
+.garten-img {
+  max-height: 100%;
+}
+
+.footer {
+  margin-top: 10px;
+  height: 80px;
+  background: $primary-color;
+}
+
+.sidebar {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  height: 500px;
+  border-radius: 3px;
+}
+
+/* .content {
+  margin-left: 25%;
+} */
+
+.btn-nav {
+  width: 100%;
+  border: 1px solid $border-color;
+  border-radius: 3px;
+  margin-bottom: 10px;
+}
+
+.btn-nav .active {
+  border-color: $border-color-active;
+}
+
+.info-icon {
+  width: 20px;
+  height: 20px;
+  background: url(./images/info-icon.svg) no-repeat center;
+  display: block;
+  block-size: contain;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.delete-icon {
+  width: 20px;
+  height: 20px;
+  background: url(./images/delete-icon.svg) no-repeat center;
+  display: block;
+  block-size: contain;
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+.close {
+  border: 1px solid $primary-color;
+  border-radius: 3px;
+  background: $primary-color;
+  border-color: $primary-color;
+  color: $text-color;
+  outline: none;
+  &:hover {
+    @include hover-btn;
+  }
+}
+
+.btn-add {
+  // margin-top: 20px;
+  background: $primary-color;
+  border-color: $primary-color;
+  color: $text-color;
+
+  &:hover {
+    @include hover-btn;
+  }
+}
+
+.group {
+  .row {
+    border: 1px solid $border-color;
+    border-radius: 3px;
+    padding: 5px;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+}
+
+.child {
+  .row {
+    border: 1px solid $border-color;
+    border-radius: 3px;
+    padding: 5px;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+}
+
+.kindergartener-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  border: 1px solid $primary-color;
+  border-radius: 3px;
+}
+
+.kindergartener-avatar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 200px;
+  height: 250px;
+  overflow: hidden;
+}
+
+.kindergartener-foto {
+  max-height: 100%;
+}
+
+.daily-regime {
+  padding: 20px;
+  border: 1px solid $primary-color;
+  border-radius: 3px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+.daily-regime {
+  p {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
+}

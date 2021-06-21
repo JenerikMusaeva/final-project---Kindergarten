@@ -57,7 +57,7 @@ span {
   margin-bottom: 20px;
 }
 
-.branch {
+.garten {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -67,7 +67,7 @@ span {
   position: relative;
 }
 
-.branch-title {
+.garten-title {
   position: absolute;
   top: 5px;
   left: 50px;
@@ -76,7 +76,7 @@ span {
   color: cornflowerblue;
 }
 
-.branch-img {
+.garten-img {
   max-height: 100%;
 }
 
@@ -181,7 +181,6 @@ span {
   border-radius: 3px;
   margin-top: 20px;
   margin-bottom: 20px;
-
 }
 
 .daily-regime > p {

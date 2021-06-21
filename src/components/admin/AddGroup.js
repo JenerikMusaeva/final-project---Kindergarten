@@ -1,10 +1,19 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { addNewGroupAction } from "../store/actions/groups";
+import { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { addGroupAction } from "../../store/actions/groups";
+import { fetchGartens } from "../../store/actions/gartens";
 
 export default function AddGroup() {
   const [form, setForm] = useState({});
   let dispatch = useDispatch();
+
+  const {
+    gartens: { loading: gartensLoading, value: gartens },
+  } = useSelector((state) => state.gartens);
+
+  useEffect(() => {
+    dispatch(fetchGartens());
+  }, []);
 
   let addGroupHandler = (e) => {
     e.preventDefault();
@@ -20,7 +29,7 @@ export default function AddGroup() {
     fetch("https://kinder-garden-project.herokuapp.com/api/group/", request)
       .then((r) => r.json())
       .then((data) => {
-        dispatch(addNewGroupAction(data));
+        dispatch(addGroupAction(data));
       });
 
     console.log(form);
@@ -42,12 +51,17 @@ export default function AddGroup() {
         <div className="col-4">
           <select
             onChange={handleChange}
-            class="form-select"
+            className="form-select"
             name="kinderGardenId"
           >
-            <option selected value="1">Филиал 1</option>
-            <option value="2">Филиал 2</option>
-            <option value="3">Филиал 3</option>
+            <option value="-1">Все</option>
+            {gartens.map((garten) => {
+              return (
+                <option key={garten.id} value={garten.id}>
+                  {garten.name}
+                </option>
+              );
+            })}
           </select>
         </div>
 
@@ -109,7 +123,7 @@ export default function AddGroup() {
         </div>
 
         <div className="mt-3">
-          <button className="btn btn-primary">Добавить группу</button>
+          <button className="btn btn-add">Добавить группу</button>
         </div>
       </form>
     </>

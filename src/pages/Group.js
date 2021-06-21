@@ -1,11 +1,20 @@
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { fetchGroup } from "../store/actions/groups";
+import { useEffect } from "react";
 
 export default function Group() {
-  let { gartenid } = useParams();
-  let gartens = useSelector((state) => state.gartens);
 
-  // let garten = gartens.find((garten) => garten.id === gartenid);
+  const dispatch = useDispatch();
+  let { groupid } = useParams();
+
+  const {
+    activeGroup: { loading: groupLoading, value: group },
+  } = useSelector((state) => state.groups);
+
+  useEffect(() => {
+    dispatch(fetchGroup(groupid));
+  }, []);
 
   return (
     <>

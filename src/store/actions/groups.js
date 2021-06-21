@@ -1,9 +1,12 @@
 import {
-  SET_GROUPS,
   ADD_GROUP,
+  DELETE_GROUP,
   FETCH_GROUPS_SUCCESS,
   FETCH_GROUPS_FAILURE,
   FETCH_GROUPS_START,
+  FETCH_GROUP_START,
+  FETCH_GROUP_FAILURE,
+  FETCH_GROUP_SUCCESS,
 } from "./types";
 import { BASE_URL } from "../constants/url";
 
@@ -40,9 +43,44 @@ export const fetchGroups = () => (dispatch) => {
     });
 };
 
-export const addNewGroupAction = (data) => {
+export const addGroupAction = (data) => {
   return {
     type: ADD_GROUP,
     payload: data,
   };
+};
+
+// group ///////////////////
+
+export function fetchGroupStart() {
+  return {
+    type: FETCH_GROUP_START,
+  };
+}
+
+export function fetchGroupFailure(payload) {
+  return {
+    type: FETCH_GROUP_FAILURE,
+    payload,
+  };
+}
+
+export function fetchGroupSuccess(payload) {
+  return {
+    type: FETCH_GROUP_SUCCESS,
+    payload,
+  };
+}
+
+export const fetchGroup = (id) => (dispatch) => {
+  dispatch(fetchGroupStart());
+
+  fetch(`${BASE_URL}/garden/${id}`)
+    .then((r) => r.json())
+    .then((garten) => {
+      dispatch(fetchGroupSuccess(garten));
+    })
+    .catch((error) => {
+      dispatch(fetchGroupFailure(error.message));
+    });
 };

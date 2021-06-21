@@ -1,9 +1,9 @@
-import Groups from "../Groups";
-import Children from "../Children";
-import Report from "../Report";
-import Attendance from "../Attendance";
-import AddGroup from "../AddGroup";
-import AddChild from "../AddChild";
+import Groups from "./Groups";
+import Children from "./Children";
+import Report from "./Report";
+import Attendance from "./Attendance";
+import AddGroup from "./AddGroup";
+import AddChild from "./AddChild";
 
 export default function AdminComponent({ path }) {
   return (

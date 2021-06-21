@@ -1,5 +1,5 @@
 import "bootstrap/dist/css/bootstrap.min.css";
-import "./Style.css";
+// import "./Style.css";
 import './style.scss';
 
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
@@ -22,7 +22,7 @@ function App() {
             <Switch>
               <Route path="/" exact component={Main} />
               <Route path="/:gartenid" exact component={Garten} />
-              <Route path="/garten/group" exact component={Group} />
+              {/* <Route path="/:gartenid/:groupid" exact component={Group} /> */}
               <Route path="/admin/:path" exact component={Admin} />
 
               {/* <Route path="/login" exact component={Login} /> */}

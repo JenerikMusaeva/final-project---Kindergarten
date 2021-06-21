@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Garten from "../components/Garten";
+import Garten from "../components/main/Garten";
 import { fetchGartens } from "../store/actions/gartens";
 
 export default function Main() {
@@ -13,10 +13,6 @@ export default function Main() {
   useEffect(() => {
     dispatch(fetchGartens());
   }, []);
-
-  useEffect(() => {
-console.log(gartens)
-  }, [gartensLoading])
 
   return (
     <div className="main-page">
