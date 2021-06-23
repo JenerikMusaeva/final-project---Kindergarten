@@ -11,7 +11,7 @@ export default function Garten() {
   let { gartenid } = useParams();
 
   const {
-    activeGarten: { loading: gartenLoading, value: activeGarten },
+    selectedGarten: { loading: gartenLoading, value: selectedGarten },
   } = useSelector((state) => state.gartens);
 
   const {
@@ -19,7 +19,7 @@ export default function Garten() {
   } = useSelector((state) => state.groups);
 
   useEffect(() => {
-    dispatch(fetchGarten(gartenid));
+    // dispatch(fetchGarten(gartenid));
     dispatch(fetchGroups());
   }, []);
 
@@ -33,15 +33,15 @@ export default function Garten() {
         <div> Загрузка групп </div>
       ) : (
         <>
-          <h3>Филиал {activeGarten.name}</h3>
+          <h3>Филиал {selectedGarten.name}</h3>
           <div>
             <address className="address-garten">
-              Адрес филиала {activeGarten.address}{" "}
+              Адрес филиала {selectedGarten.address}{" "}
             </address>
             <p>
               Контактный номер филиала{" "}
-              <a href={`tel:+996${activeGarten.contact}`}>
-                + 996 {activeGarten.contact}{" "}
+              <a href={`tel:+996${selectedGarten.contact}`}>
+                + 996 {selectedGarten.contact}{" "}
               </a>
             </p>
           </div>

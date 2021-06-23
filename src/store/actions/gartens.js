@@ -1,31 +1,16 @@
+import { BASE_URL } from "../constants/url";
 import {
-  FETCH_GARTENS_START,
+  SET_GARTENS,
   FETCH_GARTENS_FAILURE,
   FETCH_GARTENS_SUCCESS,
-  FETCH_GARTEN_START,
-  FETCH_GARTEN_FAILURE,
-  FETCH_GARTEN_SUCCESS,
+  SELECT_GARTEN,
 } from "./types";
-import { BASE_URL } from "../constants/url";
+import { fetchEnd, fetchStart } from "./appstate";
 
-// GARTENS ////////////////////////////////////
-// export function setGartens(data) {
-//   return {
-//     type: SET_GARTENS,
-//     payload: data,
-//   };
-// }
-
-export function fetchGartensStart() {
+export function setGartens(data) {
   return {
-    type: FETCH_GARTENS_START,
-  };
-}
-
-export function fetchGartensFailure(payload) {
-  return {
-    type: FETCH_GARTENS_FAILURE,
-    payload,
+    type: SET_GARTENS,
+    payload: data,
   };
 }
 
@@ -36,57 +21,38 @@ export function fetchGartensSuccess(payload) {
   };
 }
 
-export const fetchGartens = () => (dispatch) => {
-  dispatch(fetchGartensStart());
+export function fetchGartensFailure(payload) {
+  return {
+    type: FETCH_GARTENS_FAILURE,
+    payload,
+  };
+}
 
+export const fetchGartens = () => (dispatch) => {
+  dispatch(fetchStart());
+  dispatch(setGartens([]));
   fetch(`${BASE_URL}/garden/`)
     .then((r) => r.json())
     .then((gartens) => {
-      dispatch(fetchGartensSuccess(gartens));
+      dispatch(setGartens(gartens));
+      dispatch(fetchEnd());
     })
     .catch((error) => {
       dispatch(fetchGartensFailure(error.message));
+      dispatch(fetchEnd());
     });
 };
 
-// GARTEN ////////////////////////////////////
-
-// export function setGarten(data) {
+// export function selectGartenAction (data) {
 //   return {
-//     type: SET_GARTEN,
+//     type: SELECT_GARTEN,
 //     payload: data,
-//   };
+//   }
 // }
 
-export function fetchGartenStart() {
-  return {
-    type: FETCH_GARTEN_START,
-  };
-}
+// export const selectGarten = (data) => (dispatch) => {
+//   dispatch(fetchStart());
+//   dispatch(selectGartenAction(data))
+//   dispatch(fetchEnd());
 
-export function fetchGartenFailure(payload) {
-  return {
-    type: FETCH_GARTEN_FAILURE,
-    payload,
-  };
-}
-
-export function fetchGartenSuccess(payload) {
-  return {
-    type: FETCH_GARTEN_SUCCESS,
-    payload,
-  };
-}
-
-export const fetchGarten = (id) => (dispatch) => {
-  dispatch(fetchGartenStart());
-
-  fetch(`${BASE_URL}/garden/${id}`)
-    .then((r) => r.json())
-    .then((garten) => {
-      dispatch(fetchGartenSuccess(garten));
-    })
-    .catch((error) => {
-      dispatch(fetchGartenFailure(error.message));
-    });
-};
+// }

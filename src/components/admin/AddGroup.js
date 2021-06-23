@@ -2,13 +2,21 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { addGroupAction } from "../../store/actions/groups";
 import { fetchGartens } from "../../store/actions/gartens";
+import { BASE_URL } from "../../store/constants/url";
 
 export default function AddGroup() {
-  const [form, setForm] = useState({});
+  const [form, setForm] = useState({
+    kinderGardenId: "",
+    name: "",
+    teacherFullName: "",
+    imageId: "2",
+    info: "",
+  });
+
   let dispatch = useDispatch();
 
   const {
-    gartens: { loading: gartensLoading, value: gartens },
+    gartens: { value: gartens },
   } = useSelector((state) => state.gartens);
 
   useEffect(() => {
@@ -18,6 +26,26 @@ export default function AddGroup() {
   let addGroupHandler = (e) => {
     e.preventDefault();
 
+    if (!form.kinderGardenId || form.kinderGardenId === "") {
+      alert("Не выбран филиал садика");
+      return false;
+    }
+
+    if (!form.name || form.name === "") {
+      alert("Не указано название группы");
+      return false;
+    }
+
+    if (!form.teacherFullName || form.teacherFullName === "") {
+      alert("Поле воспитатель обязательно");
+      return false;
+    }
+
+    if (!form.imageId || form.imageId === "") {
+      alert("Картинка пуста");
+      return false;
+    }
+
     let request = {
       method: "POST",
       body: JSON.stringify(form),
@@ -26,13 +54,24 @@ export default function AddGroup() {
       },
     };
 
-    fetch("https://kinder-garden-project.herokuapp.com/api/group/", request)
+    fetch(`${BASE_URL}/group/`, request)
       .then((r) => r.json())
       .then((data) => {
         dispatch(addGroupAction(data));
+        setForm({
+          kinderGardenId: "",
+          name: "",
+          teacherFullName: "",
+          imageId: "2",
+          info: "",
+        });
+        alert("Группа успешно добавлена!")
+        .catch((error) => {
+          error("ERROR!!!");
+        });
       });
 
-    console.log(form);
+    //
   };
 
   let handleChange = (e) => {
@@ -70,6 +109,7 @@ export default function AddGroup() {
             Название группы
           </label>
           <input
+            valid
             type="text"
             className="form-control"
             id="name"
@@ -93,7 +133,7 @@ export default function AddGroup() {
           />
         </div>
 
-        <div className="md-3 col-7">
+        {/* <div className="md-3 col-7">
           <label for="imageId" className="form-label">
             Фотография воспитателя
           </label>
@@ -105,7 +145,7 @@ export default function AddGroup() {
             onChange={handleChange}
             value={form.imageId}
           />
-        </div>
+        </div> */}
 
         <div className="md-3 col-7">
           <label for="info" className="form-label">

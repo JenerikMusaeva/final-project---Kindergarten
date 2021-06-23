@@ -1,25 +1,18 @@
+import { BASE_URL } from "../constants/url";
 import {
-  ADD_GROUP,
-  DELETE_GROUP,
+  SET_GROUPS,
   FETCH_GROUPS_SUCCESS,
   FETCH_GROUPS_FAILURE,
-  FETCH_GROUPS_START,
-  FETCH_GROUP_START,
-  FETCH_GROUP_FAILURE,
-  FETCH_GROUP_SUCCESS,
+  ADD_GROUP,
+  DELETE_GROUP,
+  UPDATE_GROUP,
 } from "./types";
-import { BASE_URL } from "../constants/url";
+import { fetchEnd, fetchStart } from "./appstate";
 
-export function fetchGroupsStart() {
+export function setGroups(data) {
   return {
-    type: FETCH_GROUPS_START,
-  };
-}
-
-export function fetchGroupsFailure(payload) {
-  return {
-    type: FETCH_GROUPS_FAILURE,
-    payload,
+    type: SET_GROUPS,
+    payload: data,
   };
 }
 
@@ -30,16 +23,24 @@ export function fetchGroupsSuccess(payload) {
   };
 }
 
-export const fetchGroups = () => (dispatch) => {
-  dispatch(fetchGroupsStart());
+export function fetchGroupsFailure(payload) {
+  return {
+    type: FETCH_GROUPS_FAILURE,
+    payload,
+  };
+}
 
+export const fetchGroups = () => (dispatch) => {
+  dispatch(fetchStart());
   fetch(`${BASE_URL}/group/`)
     .then((r) => r.json())
     .then((groups) => {
       dispatch(fetchGroupsSuccess(groups));
+      dispatch(fetchEnd());
     })
     .catch((error) => {
       dispatch(fetchGroupsFailure(error.message));
+      dispatch(fetchEnd());
     });
 };
 
@@ -50,37 +51,29 @@ export const addGroupAction = (data) => {
   };
 };
 
-// group ///////////////////
-
-export function fetchGroupStart() {
+export const deleteGroupAction = (id) => {
   return {
-    type: FETCH_GROUP_START,
+    type: DELETE_GROUP,
+    payload: id,
   };
-}
+};
 
-export function fetchGroupFailure(payload) {
-  return {
-    type: FETCH_GROUP_FAILURE,
-    payload,
+export const deleteGroup = (id) => (dispatch) => {
+  dispatch(fetchStart());
+
+  const req = {
+    // mode: "no-cors",
+    method: "DELETE",
   };
-}
 
-export function fetchGroupSuccess(payload) {
-  return {
-    type: FETCH_GROUP_SUCCESS,
-    payload,
-  };
-}
-
-export const fetchGroup = (id) => (dispatch) => {
-  dispatch(fetchGroupStart());
-
-  fetch(`${BASE_URL}/garden/${id}`)
+  fetch(`${BASE_URL}/group/${id}`, req)
     .then((r) => r.json())
-    .then((garten) => {
-      dispatch(fetchGroupSuccess(garten));
+    .then((id) => {
+      dispatch(deleteGroupAction(id));
+      dispatch(fetchEnd());
     })
     .catch((error) => {
-      dispatch(fetchGroupFailure(error.message));
+      dispatch(fetchGroupsFailure(error.message));
+      dispatch(fetchEnd());
     });
 };

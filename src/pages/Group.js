@@ -13,7 +13,7 @@ export default function Group() {
   } = useSelector((state) => state.groups);
 
   useEffect(() => {
-    dispatch(fetchGroup(groupid));
+    // dispatch(fetchGroup(groupid));
   }, []);
 
   return (

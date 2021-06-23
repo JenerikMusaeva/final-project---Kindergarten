@@ -1,74 +1,43 @@
 import {
+  SET_GARTENS,
   FETCH_GARTENS_SUCCESS,
   FETCH_GARTENS_FAILURE,
-  FETCH_GARTENS_START,
-  FETCH_GARTEN_START,
-  FETCH_GARTEN_FAILURE,
-  FETCH_GARTEN_SUCCESS,
+  SELECT_GARTEN,
 } from "../actions/types";
 
 let initialState = {
   gartens: {
-    loading: false,
     error: null,
     value: [],
   },
-
-  activeGarten: {
-    loading: false,
-    error: null,
-    value: [],
-  },
+  selectedGarten: null,
 };
 
 export default function gartensReducer(state = initialState, action) {
   switch (action.type) {
-
-    case FETCH_GARTENS_START:
+    case SET_GARTENS:
       return {
         ...state,
-        gartens: { ...state.gartens, loading: true, error: null },
-      };
-
-    case FETCH_GARTENS_FAILURE:
-      return {
-        ...state,
-        gartens: { ...state.gartens, error: action.payload, loading: false },
+        gartens: { ...state.gartens, value: action.payload },
       };
 
     case FETCH_GARTENS_SUCCESS:
       return {
         ...state,
-        gartens: { ...state.gartens, value: action.payload, loading: false },
+        gartens: { ...state.gartens, error: null },
       };
 
-    // garten ////////////////////////////
-
-    case FETCH_GARTEN_START:
+    case FETCH_GARTENS_FAILURE:
       return {
         ...state,
-        activeGarten: { ...state.activeGarten, loading: true, error: null },
+        gartens: { ...state.gartens, error: action.payload },
       };
 
-    case FETCH_GARTEN_FAILURE:
-      return {
-        ...state,
-        activeGarten: {
-          ...state.activeGarten,
-          error: action.payload,
-          loading: false,
-        },
-      };
-
-    case FETCH_GARTEN_SUCCESS:
-      return {
-        ...state,
-        activeGarten: {
-          ...state.activeGarten,
-          value: action.payload,
-          loading: false,
-        },
-      };
+      case SELECT_GARTEN:
+        return{
+          ...state,
+          selectedGarten: action.payload, 
+        }
 
     default:
       return state;

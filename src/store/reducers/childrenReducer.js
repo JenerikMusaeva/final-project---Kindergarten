@@ -1,13 +1,14 @@
 import {
+  SET_CHILDREN,
   FETCH_CHILDREN_FAILURE,
-  FETCH_CHILDREN_START,
   FETCH_CHILDREN_SUCCESS,
-  ADD_CHILD
+  ADD_CHILD,
+  DELETE_CHILD,
+  UPDATE_CHILD,
 } from "../actions/types";
 
 let initialState = {
   children: {
-    loading: false,
     error: null,
     value: [],
   },
@@ -15,10 +16,10 @@ let initialState = {
 
 export default function childrenReducer(state = initialState, action) {
   switch (action.type) {
-    case FETCH_CHILDREN_START:
+    case SET_CHILDREN:
       return {
         ...state,
-        children: { ...state.children, loading: true, error: null },
+        children: { ...state.children, error: null },
       };
 
     case FETCH_CHILDREN_FAILURE:
@@ -34,6 +35,18 @@ export default function childrenReducer(state = initialState, action) {
       };
 
     case ADD_CHILD:
+      return {
+        ...state,
+        children: { ...state.children, value: action.payload },
+      };
+
+    case DELETE_CHILD:
+      return {
+        ...state,
+        children: { ...state.children, value: action.payload },
+      };
+
+    case UPDATE_CHILD:
       return {
         ...state,
         children: { ...state.children, value: action.payload },

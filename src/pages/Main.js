@@ -7,8 +7,10 @@ export default function Main() {
   const dispatch = useDispatch();
 
   const {
-    gartens: { loading: gartensLoading, value: gartens },
+    gartens: { value: gartens },
   } = useSelector((state) => state.gartens);
+
+  const { loading } = useSelector((state) => state.appstate);
 
   useEffect(() => {
     dispatch(fetchGartens());
@@ -18,7 +20,7 @@ export default function Main() {
     <div className="main-page">
       <div className="main-banner"></div>
       <div className="row">
-        { gartensLoading ? (
+        { loading ? (
           <div> Загрузка филиалов </div>
         ) : (
           <>

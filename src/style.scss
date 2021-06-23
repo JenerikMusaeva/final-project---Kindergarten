@@ -1,15 +1,19 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
-$primary-color: #ee82ee;
-$hover-color: #7b68ee;
+$primary-color: #8093f1;
+$hover-color: #f7aef8;
 $text-color: #fff;
-$border-color: #e9ecf2;
-$border-color-active: #b8cffd;
+$border-color: #fdc5f5;
+$border-color-active: #72ddf7;
 
 @mixin hover-btn {
   background: $hover-color;
   border-color: $hover-color;
   color: $text-color;
+}
+
+.active {
+  border-color: $border-color-active;
 }
 
 .container {
@@ -213,5 +217,13 @@ span {
   p {
     margin-top: 0px;
     margin-bottom: 0px;
+  }
+}
+
+.react-datepicker__input-container {
+  input {
+    padding: .375rem .75rem;
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
   }
 }

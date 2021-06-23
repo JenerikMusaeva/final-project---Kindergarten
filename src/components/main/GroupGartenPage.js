@@ -10,7 +10,7 @@ export default function Group({ data }) {
       <Link
         to={{ pathname: `/${data.id}` }}
         className="col-4"
-        onClick={() => dispatch(fetchGroup(data.id))}
+        // onClick={() => dispatch(fetchGroup(data.id))}
       >
         <div className="group">
           <div className="row col-6">

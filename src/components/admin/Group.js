@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import { useDispatch } from "react-redux";
-import { BASE_URL } from '../../store/constants/url'
-import { fetchGroups } from "../../store/actions/groups";
+import { deleteGroup } from "../../store/actions/groups";
 
 export default function Group({ data }) {
   const [modal, setModal] = useState(false);
@@ -13,19 +12,7 @@ export default function Group({ data }) {
 
   let handleDeleteClick = (e) => {
     e.preventDefault();
-
-    let request = {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
-
-     fetch(`${BASE_URL}/group/${data.id}`, request)
-    .then((r) => r.json())
-    .then(() => {
-      dispatch(fetchGroups());
-    });
+    dispatch(deleteGroup(data.id))
   };
   return (
     <>
@@ -33,12 +20,10 @@ export default function Group({ data }) {
         <div className="row">
           <div className="col-8"> {data.name} </div>
           <div className="col-2">
-            
-            <i onClick={toggle} className="info-icon"></i>{" "}
+            <i onClick={toggle} className="info-icon"></i>
           </div>
           <div className="col-2">
-
-            <i onClick={handleDeleteClick} className="delete-icon"></i>{" "}
+            <i onClick={handleDeleteClick} className="delete-icon"></i>
           </div>
         </div>
       </div>

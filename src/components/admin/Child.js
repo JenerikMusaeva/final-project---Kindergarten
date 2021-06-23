@@ -1,5 +1,7 @@
 import { useState } from 'react';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { useDispatch } from "react-redux";
+import { deleteChild } from "../../store/actions/children";
 
 export default function Child({data}) {
 
@@ -7,13 +9,20 @@ export default function Child({data}) {
 
   const toggle = () => setModal(!modal);
 
+  let dispatch = useDispatch();
+
+  let handleDeleteClick = (e) => {
+    e.preventDefault();
+    dispatch(deleteChild(data.id))
+  };
+
   return (
     <>
     <div className="child">
       <div className="row">
         <div className="col-8"> {data.fullName} </div>
         <div className="col-2"> <i onClick={toggle} className='info-icon'></i> </div>
-        <div className="col-2"> <i className='delete-icon'></i> </div>
+        <div className="col-2"> <i onClick={handleDeleteClick} className='delete-icon'></i> </div>
       </div>
     </div>
 
@@ -22,10 +31,10 @@ export default function Child({data}) {
         <ModalHeader toggle={toggle}>Информация о воспитаннике</ModalHeader>
         <ModalBody>
           <h6>{data.fullName}</h6>
-          <p>Возраст {data.age}</p>
+          <p>Дата рождения: {data.birthDay}</p>
           <p>Пол {data.gender}</p>
           <p>Родитель {data.parent}</p>
-          <p>{data.contact}</p>
+          <p>Номер телефона: {data.contact}</p>
 
         </ModalBody>
         <ModalFooter>

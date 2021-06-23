@@ -9,8 +9,10 @@ import { fetchGroups } from "../../store/actions/groups";
 export default function Children() {
   let dispatch = useDispatch();
 
+  const { loading } = useSelector((state) => state.appstate);
+
   const {
-    children: { loading: childrenLoading, value: children },
+    children: { value: children },
   } = useSelector((state) => state.children);
 
   useEffect(() => {
@@ -20,70 +22,77 @@ export default function Children() {
   }, []);
 
   const {
-    groups: { loading: groupsLoading, value: groups },
+    groups: { value: groups, error },
   } = useSelector((state) => state.groups);
 
   const {
-    gartens: { loading: gartensLoading, value: gartens },
+    gartens: { value: gartens },
   } = useSelector((state) => state.gartens);
 
-  const [activeGarten, setActiveGarten] = useState(-1);
-
-  const [activeGroups, setActiveGroups] = useState(groups);
+  const [selectedGarten, setSelectedGarten] = useState(-1);
+  const [selectedGroup, setSelectedGroup] = useState(groups);
 
   useEffect(() => {
-    setActiveGroups(() => {
-      if (Number(activeGarten) === -1) {
+    setSelectedGroup(() => {
+      if (Number(selectedGarten) === -1) {
         return groups;
       }
       return groups.filter(
-        (group) => Number(group.kinderGarden.id) === Number(activeGarten)
+        (group) => Number(group.kinderGarden.id) === Number(selectedGarten)
       );
     });
-  }, [activeGarten, groups.length]);
+  }, [selectedGarten, groups.length]);
 
-  // let [filteredChildren, setFilteredChildren] = useState([]);
+  let [filteredChildren, setFilteredChildren] = useState([]);
+  let [search, setSearch] = useState("");
 
-  // let [search, setSearch] = useState("");
+  useEffect(() => {
+    setFilteredChildren = children
+      .filter((child) => {
+        let searchStr = search.toLowerCase();
+        let childName = (child.firstName + " " + child.lastName).toLowerCase();
+        return childName.indexOf(searchStr) > -1;
+      })
+      .filter((child) => {
+        // return Number(child.kinderGarden.id) === Number(selectedGarten)
+      });
 
-  // let [filterChildren, setFilterChildren] = useState(children);
-  // let [selectedgarten, setSelectedgarten] = useState("-1");
-  // let [selectedgroup, setSelectedgroup] = useState("-1");
+    // .filter((child) => Number(child.group.id) === Number(selectedGroup));
+  }, [children]);
 
-  // const handleSearch = (e) => {
-  //   setSearch({ ...search, search: e.target.value });
-  // };
+  console.log("1", children);
+  console.log("2", filteredChildren);
 
-  // useEffect(() => {
-  //   setFilteredChildren = children
-  //     .filter((item) => {
-  //       let searchStr = search.toLowerCase();
+  const handleSearch = (e) => {
+    setSearch({ ...search, search: e.target.value });
+  };
 
-  //       let childName = (item.firstName + " " + item.lastName).toLowerCase();
-  //       // return childName.indexOf(searchStr) > -1;
-  //     })
-  //     .filter((child) => {
+  const handleChangeGarten = (e) => {
+    setSelectedGarten(e.target.value);
+  };
 
-  //     });
-  // }, []);
+  const handleChangeGroup = (e) => {
+    setSelectedGroup(e.target.value);
+  };
 
   return (
     <>
       <div className="col-8">
         <input
           className="form-control col-sm-6 mr-3 mb-3"
-          // onChange={handleSearch}
+          onChange={handleSearch}
           type="text"
           name="findChild"
-          // value={search}
+          value={search}
           placeholder="Поиск воспитанника"
         />
       </div>
       <div className="row">
         <div className="col-4">
+          <p>Выберите филиал</p>
           <select
-            onChange={(event) => setActiveGarten(event.target.value)}
-            disabled={gartensLoading}
+            onChange={handleChangeGarten}
+            disabled={loading}
             className="form-select col-1"
           >
             <option value="-1">Все</option>
@@ -95,11 +104,15 @@ export default function Children() {
               );
             })}
           </select>
-          <p>Выберите филиал</p>
         </div>
         <div className="col-4">
-          <select disabled={groupsLoading} className="form-select col-1">
-            {activeGroups.map((group) => {
+          <p>Выберите группу</p>
+          <select
+            onChange={handleChangeGroup}
+            disabled={loading}
+            className="form-select col-1"
+          >
+            {selectedGroup.map((group) => {
               return (
                 <option value={group.id} key={group.id}>
                   {group.name}
@@ -107,28 +120,27 @@ export default function Children() {
               );
             })}
           </select>
-          <p>Выберите группу</p>
         </div>
       </div>
 
-      {childrenLoading ? (
+      {loading ? (
         <div> Загрузка воспитанников </div>
       ) : (
         <>
           <h4>Список воспитанников</h4>
           <div>
+            {error && <div className="alert alert-danger">Error!</div>}
+            {!children.length && (
+              <div className="alert alert-danger">Список пуст!</div>
+            )}
             {children.map((child) => (
               <Child data={child} key={child.id} />
             ))}
 
-            <Link
-              disabled={childrenLoading}
-              to="/admin/addchild"
-              className="btn btn-add"
-            >
+            <Link to="/admin/addchild" className="btn btn-add">
               Добавить воспитанника
             </Link>
-          </div> 
+          </div>
         </>
       )}
     </>

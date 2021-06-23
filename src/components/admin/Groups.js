@@ -8,12 +8,14 @@ import { fetchGartens } from "../../store/actions/gartens";
 export default function Groups() {
   let dispatch = useDispatch();
 
+  const { loading } = useSelector((state) => state.appstate);
+
   const {
-    groups: { loading: groupsLoading, value: groups },
+    groups: { value: groups },
   } = useSelector((state) => state.groups);
 
   const {
-    gartens: { loading: gartensLoading, value: gartens },
+    gartens: { value: gartens, error },
   } = useSelector((state) => state.gartens);
 
   useEffect(() => {
@@ -56,27 +58,24 @@ export default function Groups() {
                 </option>
               );
             })}
-            {/* <option value="-1">Все</option>
-            <option value="1">Филиал 1</option>
-            <option value="2">Филиал 2</option>
-            <option value="3">Филиал 3</option> */}
           </select>
         </div>
       </div>
 
-      {groupsLoading ? (
+      {loading ? (
         <div> Загрузка групп </div>
       ) : (
         <>
           <h4>Список групп</h4>
 
           <div>
+          {error && <div className="alert alert-danger">Error!</div>}
+          {!filterGroups.length && <div className="alert alert-danger">Список пуст!</div>}
             {filterGroups.map((group) => (
               <Group data={group} key={group.id} />
             ))}
 
             <Link
-              disabled={groupsLoading}
               to="/admin/addgroup"
               className="btn btn-add"
             >
