@@ -6,13 +6,14 @@ import {
   ADD_GROUP,
   DELETE_GROUP,
   UPDATE_GROUP,
+  SELECT_GROUP,
 } from "./types";
 import { fetchEnd, fetchStart } from "./appstate";
 
-export function setGroups(data) {
+export function setGroups(payload) {
   return {
     type: SET_GROUPS,
-    payload: data,
+    payload,
   };
 }
 
@@ -35,6 +36,7 @@ export const fetchGroups = () => (dispatch) => {
   fetch(`${BASE_URL}/group/`)
     .then((r) => r.json())
     .then((groups) => {
+      dispatch(setGroups(groups));
       dispatch(fetchGroupsSuccess(groups));
       dispatch(fetchEnd());
     })
@@ -76,4 +78,17 @@ export const deleteGroup = (id) => (dispatch) => {
       dispatch(fetchGroupsFailure(error.message));
       dispatch(fetchEnd());
     });
+};
+
+export function selectGroupAction(data) {
+  return {
+    type: SELECT_GROUP,
+    payload: data,
+  };
+}
+
+export const selectGroup = (data) => (dispatch) => {
+  dispatch(fetchStart());
+  dispatch(selectGroupAction(data));
+  dispatch(fetchEnd());
 };

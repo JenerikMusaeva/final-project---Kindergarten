@@ -6,15 +6,16 @@ import { selectGarten } from "../../store/actions/gartens";
 export default function Garten({ data }) {
   let dispatch = useDispatch();
 
-
-
+ const handleClick = () => {
+   dispatch(selectGarten(data))
+ }
   return (
     <>
       <Link
-        to={{ pathname: `/${data.id}` }}
+        to={{ pathname: `garten${data.id}` }}
         className="col-4"
       >
-        <div className="garten">
+        <div onClick={handleClick} className="garten">
           <img className="garten-img" src={data.image.url} />
           <div className="garten-title">
             <h3>{data.name}</h3>

@@ -8,10 +8,8 @@ import {
 } from "../actions/types";
 
 let initialState = {
-  children: {
-    error: null,
-    value: [],
-  },
+  children: [],
+  error: false,
 };
 
 export default function childrenReducer(state = initialState, action) {
@@ -19,37 +17,37 @@ export default function childrenReducer(state = initialState, action) {
     case SET_CHILDREN:
       return {
         ...state,
-        children: { ...state.children, error: null },
-      };
-
-    case FETCH_CHILDREN_FAILURE:
-      return {
-        ...state,
-        children: { ...state.children, error: action.paylaod, loading: false },
+        children: action.payload,
       };
 
     case FETCH_CHILDREN_SUCCESS:
       return {
         ...state,
-        children: { ...state.children, value: action.payload, loading: false },
+        error: action.payload,
+      };
+
+    case FETCH_CHILDREN_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
       };
 
     case ADD_CHILD:
       return {
         ...state,
-        children: { ...state.children, value: action.payload },
+        children: action.payload,
       };
 
     case DELETE_CHILD:
       return {
         ...state,
-        children: { ...state.children, value: action.payload },
+        children: action.payload,
       };
 
     case UPDATE_CHILD:
       return {
         ...state,
-        children: { ...state.children, value: action.payload },
+        children: action.payload,
       };
 
     default:

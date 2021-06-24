@@ -43,16 +43,15 @@ export const fetchGartens = () => (dispatch) => {
     });
 };
 
-// export function selectGartenAction (data) {
-//   return {
-//     type: SELECT_GARTEN,
-//     payload: data,
-//   }
-// }
+export function selectGartenAction (data) {
+  return {
+    type: SELECT_GARTEN,
+    payload: data,
+  }
+}
 
-// export const selectGarten = (data) => (dispatch) => {
-//   dispatch(fetchStart());
-//   dispatch(selectGartenAction(data))
-//   dispatch(fetchEnd());
-
-// }
+export const selectGarten = (data) => (dispatch) => {
+  dispatch(fetchStart());
+  dispatch(selectGartenAction(data))
+  dispatch(fetchEnd());
+}

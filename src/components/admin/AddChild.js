@@ -25,7 +25,7 @@ export default function AddChild() {
 
   function convertDate(date) {
     if (!date) {
-      return '';
+      return "";
     }
     return (
       date.getFullYear() +
@@ -41,13 +41,9 @@ export default function AddChild() {
     dispatch(fetchGroups());
   }, []);
 
-  const {
-    groups: { value: groups },
-  } = useSelector((state) => state.groups);
+  const { groups } = useSelector((state) => state.groups);
 
-  const {
-    gartens: { value: gartens },
-  } = useSelector((state) => state.gartens);
+  const { gartens } = useSelector((state) => state.gartens);
 
   const [selectedGarten, setSelectedGarten] = useState(-1);
   const [selectedGroup, setSelectedGroup] = useState(groups);
@@ -118,11 +114,11 @@ export default function AddChild() {
           contact: "",
         });
         setDate(new Date());
-        alert("Воспитанник успешно добавлен!")
+        alert("Воспитанник успешно добавлен!");
       })
       .catch((error) => {
-          // error('ERROR!!!');
-        });
+        // error('ERROR!!!');
+      });
   };
 
   let handleChange = (e) => {

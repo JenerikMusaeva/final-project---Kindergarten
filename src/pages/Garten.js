@@ -2,24 +2,22 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { fetchGroups } from "../store/actions/groups";
-import { fetchGarten } from "../store/actions/gartens";
+// import { fetchGarten } from "../store/actions/gartens";
 import GroupGartenPage from "../components/main/GroupGartenPage";
+import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
 
 export default function Garten() {
   const dispatch = useDispatch();
 
+  const { loading } = useSelector((state) => state.appstate);
+
   let { gartenid } = useParams();
 
-  const {
-    selectedGarten: { loading: gartenLoading, value: selectedGarten },
-  } = useSelector((state) => state.gartens);
+  const { selectedGarten } = useSelector((state) => state.gartens);
 
-  const {
-    groups: { loading: groupsLoading, value: groups },
-  } = useSelector((state) => state.groups);
+  const { groups } = useSelector((state) => state.groups);
 
   useEffect(() => {
-    // dispatch(fetchGarten(gartenid));
     dispatch(fetchGroups());
   }, []);
 
@@ -29,8 +27,14 @@ export default function Garten() {
 
   return (
     <>
-      {gartenLoading ? (
-        <div> Загрузка групп </div>
+    <div>
+       <Breadcrumb>
+        <BreadcrumbItem><a href="/">Главная</a></BreadcrumbItem>
+        <BreadcrumbItem active>Филиал</BreadcrumbItem>
+      </Breadcrumb>
+    </div>
+      {loading ? (
+        <div> Загрузка филиала </div>
       ) : (
         <>
           <h3>Филиал {selectedGarten.name}</h3>

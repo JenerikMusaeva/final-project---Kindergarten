@@ -12,7 +12,7 @@ export default function ChildVisit({ data }) {
               // checked
               className="form-check-input"
               type="checkbox"
-              // value="visit"
+              value="false"
               name="visit"
               id="visitChild"
             />

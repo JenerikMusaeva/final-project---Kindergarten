@@ -10,10 +10,7 @@ export default function Group({ data }) {
 
   let dispatch = useDispatch();
 
-  let handleDeleteClick = (e) => {
-    e.preventDefault();
-    dispatch(deleteGroup(data.id))
-  };
+  
   return (
     <>
       <div className="group">
@@ -23,7 +20,7 @@ export default function Group({ data }) {
             <i onClick={toggle} className="info-icon"></i>
           </div>
           <div className="col-2">
-            <i onClick={handleDeleteClick} className="delete-icon"></i>
+            <i onClick={() => {dispatch(deleteGroup(data.id))}} className="delete-icon"></i>
           </div>
         </div>
       </div>

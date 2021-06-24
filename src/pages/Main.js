@@ -6,9 +6,7 @@ import { fetchGartens } from "../store/actions/gartens";
 export default function Main() {
   const dispatch = useDispatch();
 
-  const {
-    gartens: { value: gartens },
-  } = useSelector((state) => state.gartens);
+  const { gartens } = useSelector((state) => state.gartens);
 
   const { loading } = useSelector((state) => state.appstate);
 
@@ -20,7 +18,7 @@ export default function Main() {
     <div className="main-page">
       <div className="main-banner"></div>
       <div className="row">
-        { loading ? (
+        {loading ? (
           <div> Загрузка филиалов </div>
         ) : (
           <>

@@ -15,9 +15,7 @@ export default function AddGroup() {
 
   let dispatch = useDispatch();
 
-  const {
-    gartens: { value: gartens },
-  } = useSelector((state) => state.gartens);
+  const { gartens } = useSelector((state) => state.gartens);
 
   useEffect(() => {
     dispatch(fetchGartens());
@@ -65,10 +63,10 @@ export default function AddGroup() {
           imageId: "2",
           info: "",
         });
-        alert("Группа успешно добавлена!")
-        .catch((error) => {
-          error("ERROR!!!");
-        });
+        alert("Группа успешно добавлена!");
+      })
+      .catch((error) => {
+        error("ERROR!!!");
       });
 
     //

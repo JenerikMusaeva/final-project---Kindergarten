@@ -1,15 +1,20 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
+// @import "~slick-carousel/slick/slick.css";
+// @import "~slick-carousel/slick/slick-theme.css";
 
 $primary-color: #8093f1;
 $hover-color: #f7aef8;
-$text-color: #fff;
+$text-color-light: #fff;
+$text-color-dark: #000;
+$text-color-hover: #8093f1;
 $border-color: #fdc5f5;
+$bgc-color-hover: #fae0f6;
 $border-color-active: #72ddf7;
 
 @mixin hover-btn {
   background: $hover-color;
   border-color: $hover-color;
-  color: $text-color;
+  color: $text-color-light;
 }
 
 .active {
@@ -29,6 +34,14 @@ span {
   font-weight: 700;
 }
 
+a {
+  text-decoration: none;
+  color: $text-color-dark;
+  &:hover {
+    color: $text-color-hover;
+  }
+}
+
 /* header */
 
 .header {
@@ -46,7 +59,7 @@ span {
 .btn-login {
   background: $primary-color;
   border-color: $primary-color;
-  color: $text-color;
+  color: $text-color-light;
   &:hover {
     @include hover-btn;
   }
@@ -78,12 +91,13 @@ span {
 }
 
 .garten-title {
+  width: 150px;
   position: absolute;
   top: 5px;
-  left: 50px;
-  background: rgba(255, 255, 255, 0.671);
+  left: 30px;
+  background: rgba(128, 147, 241, 0.671);
   padding: 10px;
-  color: $primary-color;
+  color: $text-color-light;
 }
 
 .garten-img {
@@ -145,7 +159,7 @@ span {
   border-radius: 3px;
   background: $primary-color;
   border-color: $primary-color;
-  color: $text-color;
+  color: $text-color-light;
   outline: none;
   &:hover {
     @include hover-btn;
@@ -156,7 +170,7 @@ span {
   // margin-top: 20px;
   background: $primary-color;
   border-color: $primary-color;
-  color: $text-color;
+  color: $text-color-light;
 
   &:hover {
     @include hover-btn;
@@ -170,7 +184,11 @@ span {
     padding: 5px;
     align-items: center;
     margin-bottom: 5px;
+    &:hover {
+    background: $bgc-color-hover;
   }
+  }
+  
 }
 
 .child {
@@ -222,8 +240,27 @@ span {
 
 .react-datepicker__input-container {
   input {
-    padding: .375rem .75rem;
+    padding: 0.375rem 0.75rem;
     border: 1px solid #ced4da;
-    border-radius: .25rem;
+    border-radius: 0.25rem;
   }
+}
+
+.group-slider {
+  margin-top: 50px;
+}
+
+.slider-conteiner {
+  margin-right: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+}
+
+.slider-image {
+  max-width: 100%;
+  // max-height: 100%;
 }

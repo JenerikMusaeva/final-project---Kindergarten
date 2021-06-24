@@ -10,13 +10,9 @@ export default function Groups() {
 
   const { loading } = useSelector((state) => state.appstate);
 
-  const {
-    groups: { value: groups },
-  } = useSelector((state) => state.groups);
+  const { groups, error } = useSelector((state) => state.groups);
 
-  const {
-    gartens: { value: gartens, error },
-  } = useSelector((state) => state.gartens);
+  const { gartens } = useSelector((state) => state.gartens);
 
   useEffect(() => {
     dispatch(fetchGartens());
@@ -69,16 +65,15 @@ export default function Groups() {
           <h4>Список групп</h4>
 
           <div>
-          {error && <div className="alert alert-danger">Error!</div>}
-          {!filterGroups.length && <div className="alert alert-danger">Список пуст!</div>}
+            {/* {error && <div className="alert alert-danger">Error!</div>} */}
+            {!filterGroups.length && (
+              <div className="alert alert-danger">Список пуст!</div>
+            )}
             {filterGroups.map((group) => (
               <Group data={group} key={group.id} />
             ))}
 
-            <Link
-              to="/admin/addgroup"
-              className="btn btn-add"
-            >
+            <Link to="/admin/addgroup" className="btn btn-add">
               Добавить группу
             </Link>
           </div>

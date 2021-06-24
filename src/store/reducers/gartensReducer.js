@@ -6,10 +6,8 @@ import {
 } from "../actions/types";
 
 let initialState = {
-  gartens: {
-    error: null,
-    value: [],
-  },
+  gartens: [],
+  error: null,
   selectedGarten: null,
 };
 
@@ -18,26 +16,26 @@ export default function gartensReducer(state = initialState, action) {
     case SET_GARTENS:
       return {
         ...state,
-        gartens: { ...state.gartens, value: action.payload },
+        gartens: action.payload,
       };
 
     case FETCH_GARTENS_SUCCESS:
       return {
         ...state,
-        gartens: { ...state.gartens, error: null },
+        error: action.payload,
       };
 
     case FETCH_GARTENS_FAILURE:
       return {
         ...state,
-        gartens: { ...state.gartens, error: action.payload },
+        error: action.payload,
       };
 
-      case SELECT_GARTEN:
-        return{
-          ...state,
-          selectedGarten: action.payload, 
-        }
+    case SELECT_GARTEN:
+      return {
+        ...state,
+        selectedGarten: action.payload,
+      };
 
     default:
       return state;

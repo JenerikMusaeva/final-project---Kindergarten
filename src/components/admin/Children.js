@@ -10,10 +10,14 @@ export default function Children() {
   let dispatch = useDispatch();
 
   const { loading } = useSelector((state) => state.appstate);
-
-  const {
-    children: { value: children },
-  } = useSelector((state) => state.children);
+  const { children } = useSelector((state) => state.children);
+  const { groups } = useSelector((state) => state.groups);
+  const { gartens } = useSelector((state) => state.gartens);
+  const [selectedGarten, setSelectedGarten] = useState("-1");
+  const [selectedGroup, setSelectedGroup] = useState("-1");
+  const [selectedGroupArray, setSelectedGroupArray] = useState([]);
+  let [filteredChildren, setFilteredChildren] = useState([]);
+  let [search, setSearch] = useState("");
 
   useEffect(() => {
     dispatch(fetchGartens());
@@ -21,50 +25,34 @@ export default function Children() {
     dispatch(fetchChildren());
   }, []);
 
-  const {
-    groups: { value: groups, error },
-  } = useSelector((state) => state.groups);
-
-  const {
-    gartens: { value: gartens },
-  } = useSelector((state) => state.gartens);
-
-  const [selectedGarten, setSelectedGarten] = useState(-1);
-  const [selectedGroup, setSelectedGroup] = useState(groups);
+  useEffect(() => {
+    setFilteredChildren(
+      children
+        .filter((child) => {
+          let searchStr = search.toLowerCase();
+          let childName = child.fullName.toLowerCase();
+          return childName.indexOf(searchStr) > -1;
+        })
+        .filter((child) => {
+          if (selectedGarten === "-1") return true;
+          return Number(child.group.kinderGarden.id) === Number(selectedGarten);
+        })
+        .filter((child) => {
+          if (selectedGroup === "-1") return true;
+          return Number(child.group.id) === Number(selectedGroup);
+        })
+    );
+  }, [children, selectedGarten, selectedGroup, search]);
 
   useEffect(() => {
-    setSelectedGroup(() => {
-      if (Number(selectedGarten) === -1) {
-        return groups;
-      }
-      return groups.filter(
-        (group) => Number(group.kinderGarden.id) === Number(selectedGarten)
-      );
+    setSelectedGroupArray(() => {
+      if (selectedGarten === "-1") return groups;
+      return groups.filter((g) => g.kinderGarden.id === Number(selectedGarten));
     });
-  }, [selectedGarten, groups.length]);
-
-  let [filteredChildren, setFilteredChildren] = useState([]);
-  let [search, setSearch] = useState("");
-
-  useEffect(() => {
-    setFilteredChildren = children
-      .filter((child) => {
-        let searchStr = search.toLowerCase();
-        let childName = (child.firstName + " " + child.lastName).toLowerCase();
-        return childName.indexOf(searchStr) > -1;
-      })
-      .filter((child) => {
-        // return Number(child.kinderGarden.id) === Number(selectedGarten)
-      });
-
-    // .filter((child) => Number(child.group.id) === Number(selectedGroup));
-  }, [children]);
-
-  console.log("1", children);
-  console.log("2", filteredChildren);
+  }, [selectedGarten]);
 
   const handleSearch = (e) => {
-    setSearch({ ...search, search: e.target.value });
+    setSearch(e.target.value);
   };
 
   const handleChangeGarten = (e) => {
@@ -107,12 +95,14 @@ export default function Children() {
         </div>
         <div className="col-4">
           <p>Выберите группу</p>
+
           <select
             onChange={handleChangeGroup}
             disabled={loading}
             className="form-select col-1"
           >
-            {selectedGroup.map((group) => {
+            <option value="-1">Все</option>
+            {selectedGroupArray.map((group) => {
               return (
                 <option value={group.id} key={group.id}>
                   {group.name}
@@ -129,11 +119,11 @@ export default function Children() {
         <>
           <h4>Список воспитанников</h4>
           <div>
-            {error && <div className="alert alert-danger">Error!</div>}
-            {!children.length && (
+            {/* {error && <div className="alert alert-danger">Error!</div>} */}
+            {!filteredChildren.length && (
               <div className="alert alert-danger">Список пуст!</div>
             )}
-            {children.map((child) => (
+            {filteredChildren.map((child) => (
               <Child data={child} key={child.id} />
             ))}
 

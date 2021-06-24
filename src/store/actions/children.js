@@ -9,10 +9,10 @@ import {
 } from "./types";
 import { fetchEnd, fetchStart } from "./appstate";
 
-export function setChildren(data) {
+export function setChildren(payload) {
   return {
     type: SET_CHILDREN,
-    payload: data,
+    payload,
   };
 }
 
@@ -35,6 +35,7 @@ export const fetchChildren = () => (dispatch) => {
   fetch(`${BASE_URL}/childs/`)
     .then((r) => r.json())
     .then((children) => {
+      dispatch(setChildren(children));
       dispatch(fetchChildrenSuccess(children));
       dispatch(fetchEnd());
     })
@@ -44,10 +45,10 @@ export const fetchChildren = () => (dispatch) => {
     });
 };
 
-export const addChildAction = (data) => {
+export const addChildAction = (payload) => {
   return {
     type: ADD_CHILD,
-    payload: data,
+    payload,
   };
 };
 
