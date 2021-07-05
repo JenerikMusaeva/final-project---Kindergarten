@@ -1,21 +1,21 @@
 {
   "files": {
-    "main.css": "/final-project---Kindergarten/static/css/main.d09afeb6.chunk.css",
-    "main.js": "/final-project---Kindergarten/static/js/main.65c8be41.chunk.js",
-    "main.js.map": "/final-project---Kindergarten/static/js/main.65c8be41.chunk.js.map",
+    "main.css": "/final-project---Kindergarten/static/css/main.0bb0be7a.chunk.css",
+    "main.js": "/final-project---Kindergarten/static/js/main.acbe4779.chunk.js",
+    "main.js.map": "/final-project---Kindergarten/static/js/main.acbe4779.chunk.js.map",
     "runtime-main.js": "/final-project---Kindergarten/static/js/runtime-main.90e50054.js",
     "runtime-main.js.map": "/final-project---Kindergarten/static/js/runtime-main.90e50054.js.map",
     "static/css/2.69cb4bba.chunk.css": "/final-project---Kindergarten/static/css/2.69cb4bba.chunk.css",
-    "static/js/2.dd974732.chunk.js": "/final-project---Kindergarten/static/js/2.dd974732.chunk.js",
-    "static/js/2.dd974732.chunk.js.map": "/final-project---Kindergarten/static/js/2.dd974732.chunk.js.map",
+    "static/js/2.23e5d44d.chunk.js": "/final-project---Kindergarten/static/js/2.23e5d44d.chunk.js",
+    "static/js/2.23e5d44d.chunk.js.map": "/final-project---Kindergarten/static/js/2.23e5d44d.chunk.js.map",
     "index.html": "/final-project---Kindergarten/index.html",
     "static/css/2.69cb4bba.chunk.css.map": "/final-project---Kindergarten/static/css/2.69cb4bba.chunk.css.map",
-    "static/css/main.d09afeb6.chunk.css.map": "/final-project---Kindergarten/static/css/main.d09afeb6.chunk.css.map",
-    "static/js/2.dd974732.chunk.js.LICENSE.txt": "/final-project---Kindergarten/static/js/2.dd974732.chunk.js.LICENSE.txt",
+    "static/css/main.0bb0be7a.chunk.css.map": "/final-project---Kindergarten/static/css/main.0bb0be7a.chunk.css.map",
+    "static/js/2.23e5d44d.chunk.js.LICENSE.txt": "/final-project---Kindergarten/static/js/2.23e5d44d.chunk.js.LICENSE.txt",
     "static/media/Logo.3383c43e.png": "/final-project---Kindergarten/static/media/Logo.3383c43e.png",
     "static/media/cheerful-middle-aged-woman-with-curly-hair_1262-20859.9f62a817.jpeg": "/final-project---Kindergarten/static/media/cheerful-middle-aged-woman-with-curly-hair_1262-20859.9f62a817.jpeg",
     "static/media/classmates-playing-after-school.41bd5f80.jpeg": "/final-project---Kindergarten/static/media/classmates-playing-after-school.41bd5f80.jpeg",
-    "static/media/style.scss": "/final-project---Kindergarten/static/media/little-kids-cheering-while-holding-a-white-board.95dd2811.jpg",
+    "static/media/style.scss": "/final-project---Kindergarten/static/media/report-icon.5a50b1e5.svg",
     "static/media/funny-starts-kids-fashion-concept-the-group-of-teen-boys-and-girls-running-at-park.5f0a30d0.jpeg": "/final-project---Kindergarten/static/media/funny-starts-kids-fashion-concept-the-group-of-teen-boys-and-girls-running-at-park.5f0a30d0.jpeg",
     "static/media/playful-classmates-having-fun-on-playground.a15636a1.jpeg": "/final-project---Kindergarten/static/media/playful-classmates-having-fun-on-playground.a15636a1.jpeg",
     "static/media/schoolchildren-having-fun.1f70023c.jpeg": "/final-project---Kindergarten/static/media/schoolchildren-having-fun.1f70023c.jpeg",
@@ -24,8 +24,8 @@
   "entrypoints": [
     "static/js/runtime-main.90e50054.js",
     "static/css/2.69cb4bba.chunk.css",
-    "static/js/2.dd974732.chunk.js",
-    "static/css/main.d09afeb6.chunk.css",
-    "static/js/main.65c8be41.chunk.js"
+    "static/js/2.23e5d44d.chunk.js",
+    "static/css/main.0bb0be7a.chunk.css",
+    "static/js/main.acbe4779.chunk.js"
   ]
 }
