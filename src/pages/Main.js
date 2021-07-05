@@ -17,7 +17,7 @@ export default function Main() {
   return (
     <div className="main-page">
       <div className="main-banner"></div>
-      <div className="row">
+      <div className="row main-garten">
         {loading ? (
           <div> Загрузка филиалов </div>
         ) : (

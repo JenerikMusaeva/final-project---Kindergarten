@@ -5,11 +5,15 @@ import {
   ADD_CHILD,
   DELETE_CHILD,
   UPDATE_CHILD,
+  VISIT_CHILDREN,
+  REPORT_CHILDREN,
+  REPORT_CHILDREN_FAILURE
 } from "../actions/types";
 
 let initialState = {
   children: [],
   error: false,
+  visitChildren:[],
 };
 
 export default function childrenReducer(state = initialState, action) {
@@ -23,7 +27,7 @@ export default function childrenReducer(state = initialState, action) {
     case FETCH_CHILDREN_SUCCESS:
       return {
         ...state,
-        error: action.payload,
+        error: null,
       };
 
     case FETCH_CHILDREN_FAILURE:
@@ -35,7 +39,25 @@ export default function childrenReducer(state = initialState, action) {
     case ADD_CHILD:
       return {
         ...state,
-        children: action.payload,
+        children: [...state.children, action.payload],
+      };
+
+    case VISIT_CHILDREN:
+      return {
+        ...state,
+        visitChildren: [...state.visitChildren, action.payload],
+      };
+
+      case REPORT_CHILDREN:
+      return {
+        ...state,
+        visitChildren: [...state.visitChildren, action.payload],
+      };
+
+      case REPORT_CHILDREN_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
       };
 
     case DELETE_CHILD:

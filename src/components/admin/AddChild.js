@@ -10,7 +10,7 @@ export default function AddChild() {
   const [form, setForm] = useState({
     groupId: "",
     fullName: "",
-    imageId: "1",
+    imageId: 1,
     birthDay: "",
     gender: "Мальчик",
     parent: "",
@@ -77,11 +77,6 @@ export default function AddChild() {
       return false;
     }
 
-    if (!form.imageId || form.imageId === "") {
-      alert("Картинка пуста");
-      return false;
-    }
-
     if (!form.parent || form.parent === "") {
       alert("Не указано имя родителя");
       return false;
@@ -90,17 +85,23 @@ export default function AddChild() {
     if (!form.contact || form.contact === "") {
       alert("Укажите контактный номер родителя");
       return false;
-    }
+    } 
+    // else if (form.contact.length !== 9) {
+    //   alert("Номер должен состоять из кода и номера телефона");
+    //   return false;
+    // } else {
+    //   return false;
+    // }
 
     let request = {
       method: "POST",
-      body: JSON.stringify({ ...form, birthDay: convertDate(date) }),
+      body: JSON.stringify({ ...form, birthDay: date}),
       headers: {
         "Content-Type": "application/json",
       },
     };
 
-    fetch(`${BASE_URL}/childs/`, request)
+    fetch(`${BASE_URL}/child/`, request)
       .then((r) => r.json())
       .then((data) => {
         dispatch(addChildAction(data));
@@ -134,7 +135,7 @@ export default function AddChild() {
 
       <form onSubmit={addChildHandler}>
         <div className="row">
-          <div className="col-4">
+          <div className="col-12 col-md-4">
             <p>Выберите филиал</p>
             <select
               onChange={(event) => setSelectedGarten(event.target.value)}
@@ -151,7 +152,7 @@ export default function AddChild() {
               })}
             </select>
           </div>
-          <div className="col-4">
+          <div className="col-12 col-md-4">
             <p>Выберите группу</p>
 
             <select
@@ -173,8 +174,8 @@ export default function AddChild() {
         </div>
 
         <div className="row">
-          <div className="md-3 col-10">
-            <label for="fullName" className="form-label">
+          <div className="md-3 col-12 col-md-10">
+            <label htmlFor="fullName" className="form-label">
               Фамилия Имя воспитанника
             </label>
             <input
@@ -189,7 +190,7 @@ export default function AddChild() {
         </div>
 
         <div className="md-3 col-7">
-          <p for="patronymic" className="form-label">
+          <p htmlFor="patronymic" className="form-label">
             Дата рождения
           </p>
           <DatePicker
@@ -199,8 +200,8 @@ export default function AddChild() {
           />
         </div>
 
-        <div className="md-3 mt-3 mb-3 col-7">
-          <label for="genderMale">муж.</label>
+        <div className="md-3 mt-3 mb-3 col-12 col-md-7">
+          <label htmlFor="genderMale">муж.</label>
           <input
             checked={form.gender === "Мальчик"}
             onChange={handleChange}
@@ -209,7 +210,7 @@ export default function AddChild() {
             name="gender"
             value="Мальчик"
           />
-          <label for="genderFemale">жен.</label>
+          <label htmlFor="genderFemale">жен.</label>
           <input
             checked={form.gender === "Девочка"}
             type="radio"
@@ -222,8 +223,8 @@ export default function AddChild() {
 
         <h5>Родитель</h5>
 
-        <div className="md-3 col-10">
-          <label for="parent" className="form-label">
+        <div className="md-3 col-12 col-md-10">
+          <label htmlFor="parent" className="form-label">
             ФИО родителя
           </label>
           <input
@@ -236,8 +237,8 @@ export default function AddChild() {
           />
         </div>
 
-        <div className="md-3 col-6">
-          <label for="contact" className="form-label">
+        <div className="md-3 col-10 col-md-6">
+          <label htmlFor="contact" className="form-label">
             Контакты родителя
           </label>
           <input
@@ -245,6 +246,7 @@ export default function AddChild() {
             className="form-control"
             id="contact"
             name="contact"
+            placeholder="(000)000000"
             onChange={handleChange}
             value={form.contact}
           />

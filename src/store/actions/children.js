@@ -6,6 +6,8 @@ import {
   SET_CHILDREN,
   DELETE_CHILD,
   UPDATE_CHILD,
+  VISIT_CHILDREN,
+  REPORT_CHILDREN,
 } from "./types";
 import { fetchEnd, fetchStart } from "./appstate";
 
@@ -32,7 +34,7 @@ export function fetchChildrenFailure(payload) {
 
 export const fetchChildren = () => (dispatch) => {
   dispatch(fetchStart());
-  fetch(`${BASE_URL}/childs/`)
+  fetch(`${BASE_URL}/child/`)
     .then((r) => r.json())
     .then((children) => {
       dispatch(setChildren(children));
@@ -61,13 +63,10 @@ export const deleteChildAction = (id) => {
 
 export const deleteChild = (id) => (dispatch) => {
   dispatch(fetchStart());
-
   const req = {
-    // mode: "no-cors",
     method: "DELETE",
   };
-
-  fetch(`${BASE_URL}/childs/${id}`, req)
+  fetch(`${BASE_URL}/child/${id}`, req)
     .then((r) => r.json())
     .then((id) => {
       dispatch(deleteChildAction(id));
@@ -78,4 +77,20 @@ export const deleteChild = (id) => (dispatch) => {
       dispatch(fetchEnd());
     });
 };
+
+export const visitChildrenAction = (payload) => {
+  return {
+    type: VISIT_CHILDREN,
+    payload,
+  };
+}
+
+export const reportChildrenAction = (payload) => {
+  return {
+    type: REPORT_CHILDREN,
+    payload,
+  };
+}
+
+
 

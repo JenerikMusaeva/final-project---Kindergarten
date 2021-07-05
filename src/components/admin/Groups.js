@@ -39,7 +39,7 @@ export default function Groups() {
   return (
     <>
       <div className="row">
-        <div className="col-4">
+        <div className="col-12 col-md-4">
           <p>Выберите филиал</p>
           <select
             onChange={handleChange}
@@ -64,7 +64,7 @@ export default function Groups() {
         <>
           <h4>Список групп</h4>
 
-          <div>
+          <div >
             {/* {error && <div className="alert alert-danger">Error!</div>} */}
             {!filterGroups.length && (
               <div className="alert alert-danger">Список пуст!</div>

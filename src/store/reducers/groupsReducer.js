@@ -43,7 +43,7 @@ export default function groupsReducer(state = initialState, action) {
     case ADD_GROUP:
       return {
         ...state,
-        groups: action.payload,
+        groups: [...state.groups, action.payload],
       };
 
     case DELETE_GROUP:

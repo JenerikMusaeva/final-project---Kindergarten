@@ -1,16 +1,19 @@
 import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
-import { fetchChildren } from "../../store/actions/children";
+import {
+  fetchChildren,
+  visitChildrenAction,
+} from "../../store/actions/children";
 import { fetchGartens } from "../../store/actions/gartens";
 import { fetchGroups } from "../../store/actions/groups";
 import { useDispatch, useSelector } from "react-redux";
 import ChildVisit from "./ChildVisit";
+import { BASE_URL } from "../../store/constants/url";
 
 import "react-datepicker/dist/react-datepicker.css";
 
 export default function Attendance() {
   let dispatch = useDispatch();
-
   const { loading } = useSelector((state) => state.appstate);
   const { children } = useSelector((state) => state.children);
   const { groups } = useSelector((state) => state.groups);
@@ -18,9 +21,9 @@ export default function Attendance() {
   const [selectedGarten, setSelectedGarten] = useState("-1");
   const [selectedGroup, setSelectedGroup] = useState("-1");
   const [selectedGroupArray, setSelectedGroupArray] = useState([]);
-  let [filteredChildren, setFilteredChildren] = useState([]);
-  // const [startDate, setStartDate] = useState(new Date());
   const [date, setDate] = useState(new Date());
+  let [filteredChildren, setFilteredChildren] = useState([]);
+  let [visitChildren, setVisitChildren] = useState([]);
 
   const isWeekday = (date) => {
     const day = date.getDay();
@@ -37,6 +40,7 @@ export default function Attendance() {
     setFilteredChildren(
       children
         .filter((child) => {
+          console.log("Child", child);
           if (selectedGarten === "-1") return true;
           return Number(child.group.kinderGarden.id) === Number(selectedGarten);
         })
@@ -44,6 +48,7 @@ export default function Attendance() {
           if (selectedGroup === "-1") return true;
           return Number(child.group.id) === Number(selectedGroup);
         })
+        .sort((a, b) => a - b)
     );
   }, [children, selectedGarten, selectedGroup]);
 
@@ -54,8 +59,41 @@ export default function Attendance() {
     });
   }, [selectedGarten]);
 
+  const visitedChildren = filteredChildren.map((child) => {
+    return {
+      date,
+      visit: visitChildren.includes(child.id),
+      groupId: selectedGroup,
+      childId: child.id,
+    };
+  });
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (visitedChildren === []) {
+      alert("Не выбрана группа");
+      return false;
+    }
+
+    let request = {
+      method: "POST",
+      body: JSON.stringify(visitedChildren),
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    fetch(`${BASE_URL}/visits/`, request)
+      .then((r) => r.json())
+      .then((data) => {
+        dispatch(visitChildrenAction(data));
+        alert("Посещаемость отмечена!");
+        setVisitChildren([]);
+      })
+      .catch((error) => {
+        error("ERROR!!!");
+      });
   };
 
   const handleChangeGarten = (e) => {
@@ -70,7 +108,7 @@ export default function Attendance() {
     <>
       <h4>Посещаемость</h4>
       <div className="row">
-        <div className="col-4">
+        <div className="col-12 col-md-4">
           <p>Укажите дату</p>
           <DatePicker
             filterDate={isWeekday}
@@ -80,7 +118,7 @@ export default function Attendance() {
             onChange={(date) => setDate(date)}
           />
         </div>
-        <div className="col-4">
+        <div className="col-12 col-md-4">
           <p>Выберите филиал</p>
           <select
             onChange={handleChangeGarten}
@@ -97,7 +135,7 @@ export default function Attendance() {
             })}
           </select>
         </div>
-        <div className="col-4">
+        <div className="col-12 col-md-4">
           <p>Выберите группу</p>
           <select
             onChange={handleChangeGroup}
@@ -115,25 +153,35 @@ export default function Attendance() {
           </select>
         </div>
       </div>
+      <h4>Список воспитанников</h4>
+      {
+        // if (selectedGarten === "-1" && selectedGroup === "-1")
+        //   return <p>Выберите филиал и группу</p>
 
-      {loading ? (
-        <div> Загрузка воспитанников </div>
-      ) : (
-        <>
-          <h4>Список воспитанников</h4>
-          <div>
-            {!filteredChildren.length && (
-              <div className="alert alert-danger">Список пуст!</div>
-            )}
-            {filteredChildren.map((child) => (
-              <ChildVisit data={child} key={child.id} />
-            ))}
-            <button onClick={handleSubmit} className="btn btn-add">
-              Отметить посещаемость
-            </button>
-          </div>
-        </>
-      )}
+        selectedGarten === "-1" && selectedGroup === "-1" ? (
+          <p>Выберите филиал и группу</p>
+        ) : (
+          // <div> Загрузка воспитанников </div>
+          <>
+            <div>
+              {!filteredChildren.length && (
+                <div className="alert alert-danger">Список пуст!</div>
+              )}
+              {filteredChildren.map((child) => (
+                <ChildVisit
+                  visitChildren={visitChildren}
+                  setVisitChildren={setVisitChildren}
+                  data={child}
+                  key={child.id}
+                />
+              ))}
+              <button onClick={handleSubmit} className="btn btn-add">
+                Отметить посещаемость
+              </button>
+            </div>
+          </>
+        )
+      }
     </>
   );
 }

@@ -3,19 +3,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { addGroupAction } from "../../store/actions/groups";
 import { fetchGartens } from "../../store/actions/gartens";
 import { BASE_URL } from "../../store/constants/url";
+import { fetchEnd } from "../../store/actions/appstate";
+import { setGroups } from "../../store/actions/groups";
 
 export default function AddGroup() {
   const [form, setForm] = useState({
     kinderGardenId: "",
     name: "",
     teacherFullName: "",
-    imageId: "2",
+    imageId: "8",
     info: "",
   });
 
   let dispatch = useDispatch();
 
   const { gartens } = useSelector((state) => state.gartens);
+  // const { groups } = useSelector((state) => state.groups);
 
   useEffect(() => {
     dispatch(fetchGartens());
@@ -63,10 +66,12 @@ export default function AddGroup() {
           imageId: "2",
           info: "",
         });
+        dispatch(fetchEnd());
         alert("Группа успешно добавлена!");
       })
       .catch((error) => {
         error("ERROR!!!");
+        dispatch(fetchEnd());
       });
 
     //
@@ -85,7 +90,7 @@ export default function AddGroup() {
 
       <form onSubmit={addGroupHandler}>
         <p>Выберите филиал</p>
-        <div className="col-4">
+        <div className="col-12 col-md-4">
           <select
             onChange={handleChange}
             className="form-select"
@@ -102,8 +107,8 @@ export default function AddGroup() {
           </select>
         </div>
 
-        <div className="md-3 col-7">
-          <label for="name" className="form-label">
+        <div className="md-3 col-12 col-md-7">
+          <label htmlFor="name" className="form-label">
             Название группы
           </label>
           <input
@@ -117,8 +122,8 @@ export default function AddGroup() {
           />
         </div>
 
-        <div className="md-3 col-7">
-          <label for="teacherFullName" className="form-label">
+        <div className="md-3 col-12 col-md-7">
+          <label htmlFor="teacherFullName" className="form-label">
             ФИО Воспитателя
           </label>
           <input
@@ -131,22 +136,8 @@ export default function AddGroup() {
           />
         </div>
 
-        {/* <div className="md-3 col-7">
-          <label for="imageId" className="form-label">
-            Фотография воспитателя
-          </label>
-          <input
-            type="text"
-            className="form-control"
-            id="imageId"
-            name="imageId"
-            onChange={handleChange}
-            value={form.imageId}
-          />
-        </div> */}
-
-        <div className="md-3 col-7">
-          <label for="info" className="form-label">
+        <div className="md-3 col-12 col-md-7">
+          <label htmlFor="info" className="form-label">
             Информация группы
           </label>
           <textarea

@@ -65,9 +65,9 @@ export default function Children() {
 
   return (
     <>
-      <div className="col-8">
+      <div className="col-12 col-md-8">
         <input
-          className="form-control col-sm-6 mr-3 mb-3"
+          className="form-control col-12 col-md-6 mr-3 mb-3"
           onChange={handleSearch}
           type="text"
           name="findChild"
@@ -76,7 +76,7 @@ export default function Children() {
         />
       </div>
       <div className="row">
-        <div className="col-4">
+        <div className="col-12 col-md-4">
           <p>Выберите филиал</p>
           <select
             onChange={handleChangeGarten}
@@ -93,7 +93,7 @@ export default function Children() {
             })}
           </select>
         </div>
-        <div className="col-4">
+        <div className="col-12 col-md-4">
           <p>Выберите группу</p>
 
           <select
@@ -120,7 +120,7 @@ export default function Children() {
           <h4>Список воспитанников</h4>
           <div>
             {/* {error && <div className="alert alert-danger">Error!</div>} */}
-            {!filteredChildren.length && (
+            {!filteredChildren.length && children.length && (
               <div className="alert alert-danger">Список пуст!</div>
             )}
             {filteredChildren.map((child) => (

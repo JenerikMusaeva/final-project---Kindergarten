@@ -1,9 +1,7 @@
-import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
-import { fetchGroup } from "../store/actions/groups";
-import { useEffect, Component } from "react";
 import Slider from "react-slick";
-import { Breadcrumb, BreadcrumbItem } from 'reactstrap';
+import { useDispatch, useSelector } from "react-redux";
+import { Breadcrumb, BreadcrumbItem } from "reactstrap";
+
 import img0 from "../images/cheerful-middle-aged-woman-with-curly-hair_1262-20859.jpeg";
 import img1 from "../images/schoolchildren-having-fun.jpeg";
 import img2 from "../images/classmates-playing-after-school.jpeg";
@@ -11,10 +9,8 @@ import img3 from "../images/playful-classmates-having-fun-on-playground.jpeg";
 import img4 from "../images/funny-starts-kids-fashion-concept-the-group-of-teen-boys-and-girls-running-at-park.jpeg";
 
 export default function Group() {
-  const dispatch = useDispatch();
-  // let { groupid } = useParams();
-
   const { selectedGroup } = useSelector((state) => state.groups);
+  const dispatch = useDispatch();
 
   const settings = {
     dots: true,
@@ -29,22 +25,26 @@ export default function Group() {
 
   return (
     <>
-    <Breadcrumb>
-        <BreadcrumbItem><a href="/">Главная</a></BreadcrumbItem>
-        <BreadcrumbItem><a href="/garten:gartenid">Филиал</a></BreadcrumbItem>
+      <Breadcrumb>
+        <BreadcrumbItem>
+          <a href="/">Главная</a>
+        </BreadcrumbItem>
+        <BreadcrumbItem>
+          <a href="/garten/:gartenid">Филиал</a>
+        </BreadcrumbItem>
         <BreadcrumbItem active>Группа</BreadcrumbItem>
-      </Breadcrumb> 
+      </Breadcrumb>
       <div className="row">
-        <div className="group-sidebar col-3">
+        <div className="group-sidebar col-12 col-md-3">
           <div className="kindergartener-info">
             <div className="kindergartener-avatar">
               <img
                 className="kindergartener-foto"
-                src={img0}
+                src={selectedGroup.image.url}
               />
             </div>
             <h6>Воспитатель</h6>
-            <p> Нина Васильевна</p>
+            <p> {selectedGroup.teacherFullName}</p>
           </div>
           <div className="daily-regime">
             <h5>Режим дня</h5>
@@ -82,38 +82,26 @@ export default function Group() {
         </div>
 
         <div className="col-9">
-          <h3>Группа {}</h3>
+          <h3> {selectedGroup.name}</h3>
           <div className="group-info">
-            <p>
-              Для деток 3-6 лет, для которых мини-садик – это подготовка к
-              детскому саду полного дня. Для деток, которым нужен более
-              индивидуальный подход, чем это может обеспечить детский сад
-              полного дня Для деток, которым скоро в школу, а качество занятий в
-              детском саду не устраивает. Для деток с индивидуальными
-              особенностями в питании, для которых детсадовская еда не
-              приемлема. Для деток, которые часто болеют в обычном садике. Не
-              продолжительное пребывание с маленьким количеством других детей
-              минимизирует риск заболеваний.
-            </p>
+            <p>{selectedGroup.info}</p>
+            <p>Группы до 15 человек. График работы с 7:00-18:30. МЫ ПРЕДЛАГАЕМ: сбалансированное 4-х разовое питание, программы дошкольного и дополнительного образования, предшкольная подготовка, изучение языков (английский язык, кыргызский язык), эстетическое и нравственное воспитание, художественное и музыкальное развитие, развивающие занятия (лепка, пальчиковые игры, рисование, аппликация), постановки в кукольном театре.</p>
           </div>
           <div className="group-slider ">
-            <div>
-              <h2></h2>
-              <Slider {...settings}>
-                <div className="slider-conteiner">
-                  <img className="slider-image" src={img1} />
-                </div>
-                <div className="slider-conteiner">
-                  <img className="slider-image" src={img2} />
-                </div>
-                <div className="slider-conteiner">
-                  <img className="slider-image" src={img3} />
-                </div>
-                <div className="slider-conteiner">
-                  <img className="slider-image" src={img4} />
-                </div>
-              </Slider>
-            </div>
+            <Slider className="slider-group" {...settings}>
+              <div className="slider-conteiner">
+                <img className="slider-image" src={img1} />
+              </div>
+              <div className="slider-conteiner">
+                <img className="slider-image" src={img2} />
+              </div>
+              <div className="slider-conteiner">
+                <img className="slider-image" src={img3} />
+              </div>
+              <div className="slider-conteiner">
+                <img className="slider-image" src={img4} />
+              </div>
+            </Slider>
           </div>
         </div>
       </div>

@@ -34,9 +34,9 @@ export default function Group({ data }) {
             <p>{data.info}</p>
           </ModalBody>
           <ModalFooter>
-            <Button color="primary" className="btn-add" onClick={toggle}>
+            {/* <Button color="primary" className="btn-add" onClick={toggle}>
               Редактировать
-            </Button>
+            </Button> */}
             <Button color="secondary" onClick={toggle}>
               Cancel
             </Button>
